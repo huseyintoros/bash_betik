@@ -1,0 +1,950 @@
+#!/bin/bash
+#!/bin/bash
+export NCARG_ROOT=/usr/local/ncl-6.2.1
+export PATH=$NCARG_ROOT/bin:$PATH
+
+cd /home/hava12/Build_WRF/WRFV3/run
+cp meteogram_thy_2.ncl_asil meteogram_thy_2.ncl
+
+rm *.pdf *.ps
+# Tarih atamalari
+gun_2=$(date +%d -d "-2 day") # onceki dun
+gun_1=$(date +%d -d "-1 day") # dun
+gun=$(date +%d)             # bugun
+gun1=$(date +%d -d "+1 day") # yarin
+gun2=$(date +%d -d "+2 day") # ertesi gun
+
+ay_1=$(date +%m -d "-1 day") # dunku ay
+ay=$(date +%m)               # bu ay
+ay1=$(date +%m -d "+1 day")  # yarinki ay
+ay2=$(date +%m -d "+2 day")  # oburgunku  ay
+
+yil_1=$(date +%y -d "-1 day")    # dunku yil
+tamyil_1=$(date +%Y -d "-1 day") # dunku yil
+yil=$(date +%y)                  # bul yil
+tamyil=$(date +%Y)               # bu yil
+yil1=$(date +%y -d "+1 day")   # yarinki yil
+tamyil1=$(date +%Y -d "+1 day")  # yarinki yil
+tamyil2=$(date +%Y -d "+2 day")  # oburhunku yil
+
+tarih=$"gfs."$tamyil_1$ay_1$gun_1"18"
+
+echo $tarih
+
+
+# International
+
+# meteograms Istanbul LTBA
+
+
+sed -i '16d' meteogram_thy_2.ncl
+sed -i '15 a a= addfile ("wrfout_d01_'$tamyil'-'$ay'-'$gun'_00.nc", "r") ' meteogram_thy_2.ncl
+
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.97       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 28.81       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Istanbul LTBA (40.97 28.81) 3er saatlik 3 gunluk"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBA.png 
+rm meteo3.ps
+
+# meteograms Istanbul LTFJ
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.9       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 29.31       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Istanbul LTFJ 40.9 29.31 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTFJ.png 
+rm meteo3.ps
+
+# meteograms ITU MASLAK
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 41.1       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 29.02       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "ITU MASLAK (41.1 29.02) 3er saatlik ve 3 gunluk" ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/ITUMASLAK.png 
+rm meteo3.ps
+
+
+# meteograms Ankara LTAC
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.13       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 32.99       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Ankara LTAC 40.13 32.99 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAC.png 
+rm meteo3.ps
+
+# meteograms Adana LTAF
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 36.98       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 35.28       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Adana LTAF 36.98 35.28"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAF.png 
+rm meteo3.ps
+
+# meteograms Antakya LTAK
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 36.36       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 36.28       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Antakya LTAK 36.36 36.28"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAK.png 
+rm meteo3.ps
+
+# meteograms Antalya LTAI 
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 36.9       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 30.79       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Antalya LTAI 36.9 30.79 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAI.png 
+rm meteo3.ps
+
+# meteograms Bodrum LTFE
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 37.25       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 27.66       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Bodrum LTFE 37.25 27.66"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTFE.png 
+rm meteo3.ps
+
+# meteograms Bursa LTBR
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.26       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 29.56       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Bursa LTBR 40.26 29.56 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBR.png 
+rm meteo3.ps
+
+# meteograms Dalaman LTBS
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 36.71       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 28.79       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Dalaman LTBS 36.71  28.79 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBS.png 
+rm meteo3.ps
+
+# meteograms Erzurum LTCE
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 41.17       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 39.95       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Erzurum LTCE 41.17 39.95"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCE.png 
+rm meteo3.ps
+
+# meteograms Eskisehir LTBY
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 39.81       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 30.52       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Eskisehir LTBY 39.81 30.52 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBY.png 
+rm meteo3.ps
+
+# meteograms Gaziantep LTAJ
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 36.95       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 37.48       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Gaziantep LTAJ 36.95 37.48"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAJ.png 
+rm meteo3.ps
+
+# meteograms Izmir LTBJ
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 38.29       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 27.16       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Izmir LTBJ 38.29 27.16 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBJ.png 
+rm meteo3.ps
+
+# meteograms Kayseri LTAU
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 38.77       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 35.5       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Kayseri LTAU 38.77 35.5 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAU.png 
+rm meteo3.ps
+
+# meteograms Konya LTAN
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 37.98       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 32.56       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Konya LTAN 37.98 32.56 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAN.png 
+rm meteo3.ps
+
+# meteograms Kutahya LTBZ
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 39.11       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 30.13       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Kutahya LTBZ 39.11 30.13 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBZ.png 
+rm meteo3.ps
+
+# meteograms Malatya LTAT
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 38.44       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 38.09       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Malatya LTAT 38.44 38.09"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAT.png 
+rm meteo3.ps
+
+# meteograms Nevsehir LTAZ
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 38.77       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 34.53       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Nevsehir LTAZ  38.77 34.53 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAZ.png 
+rm meteo3.ps
+
+# meteograms Samsun LTFH
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 41.27       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 36.55       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Samsun LTFH 41.27 36.55 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTFH.png 
+rm meteo3.ps
+
+# meteograms Sanliurfa LTCS
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 37.45       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 38.9       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Sanliurfa LTCS 37.45  38.9 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCS.png 
+rm meteo3.ps
+
+# meteograms Taskisigi
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.8644        ' meteogram_thy_2.ncl   
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 30.3932       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Taskisigi 40.8644 30.3932 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl          
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/TASK.png 
+rm meteo3.ps
+
+# meteograms Trabzon LTCG
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 41       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 39.79       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Trabzon LTCG"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCG.png 
+rm meteo3.ps
+
+# Yerel
+
+# meteograms Adiyaman LTCP
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 37.73       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 38.47       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Adiyaman LTCP"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCP.png 
+rm meteo3.ps
+
+# meteograms Agri LTCO
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 43.02       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 39.64       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Agri LTCO  43.02 39.64" ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCO.png 
+rm meteo3.ps
+
+# meteograms Amasya LTAP
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.83       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 35.52       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Amasya LTAP 40.83 35.52 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAP.png 
+rm meteo3.ps
+
+# meteograms Antalya LTGP
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 36.3       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 32.3       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Antalya LTGP 36.3  32.3 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTGP.png 
+rm meteo3.ps
+
+# meteograms Balikesir LTBF
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 39.62       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 27.93       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Balikesir LTBF 39.62  27.93"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBF.png 
+rm meteo3.ps
+
+# meteograms Balikesir LTFD
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 39.56       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 27.01       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Balikesir LTFD 39.56 27.01 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTFD.png 
+rm meteo3.ps
+
+# meteograms Batman LTCJ
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 37.93       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 41.12       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Batman LTCJ"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCJ.png 
+rm meteo3.ps
+
+# meteograms Bingol LTCU
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 38.86       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 40.59       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Bingol LTCU 38.86 40.59 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCU.png 
+rm meteo3.ps
+
+# meteograms Canakkale LTBH
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.14       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 26.43       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Canakkale LTBH  40.14 26.43"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBH.png 
+rm meteo3.ps
+
+# meteograms Denizli LTAY
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 37.79       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 29.7       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Denizli LTAY 37.79 29.7 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAY.png 
+rm meteo3.ps
+
+# meteograms Diyarbakir LTCC
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 37.89       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 40.2       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Diyarbakir LTCC 37.89  40.2 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCC.png 
+rm meteo3.ps
+
+# meteograms Elazig LTCA
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 38.6       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 39.29       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Elazig LTCA 38.6 39.29 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCA.png 
+rm meteo3.ps
+
+# meteograms Erzincan LTCD
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 39.71       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 39.52       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Erzincan LTCD 39.71 39.52"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCD.png 
+rm meteo3.ps
+
+# meteograms Igdir LTCT
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 39.98       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 43.86       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Igdir LTCT 39.98 43.86 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCT.png 
+rm meteo3.ps
+
+# meteograms Isparta LTFC
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 38.86       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 30.38       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Isparta LTFC 38.86 30.38 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTFC.png 
+rm meteo3.ps
+
+# meteograms Istanbul LTBW
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 41.1       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 28.55       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Istanbul LTBW 41.1 28.55 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBW.png 
+rm meteo3.ps
+
+# meteograms Kahramanmaras LTCN
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 37.54       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 36.95       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Kahramanmaras LTCN 37.54 36.95  "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCN.png 
+rm meteo3.ps
+
+# meteograms Kars LTCF
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 43.10      ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 40.55       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Kars LTCF 43.10 40.55"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCF.png 
+rm meteo3.ps
+
+# meteograms Kastamonu LTAL
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 41.31       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 33.79       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Kastamonu LTAL  41.31 33.79 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAL.png 
+rm meteo3.ps
+
+# meteograms Kocaeli LTBQ
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.74       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 30.08       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Kocaeli LTBQ 40.74 30.08 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBQ.png 
+rm meteo3.ps
+
+# meteograms Mardin LTCR
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 37.23       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 40.64       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Mardin LTCR 37.23 40.64 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCR.png 
+rm meteo3.ps
+
+# meteograms Mus LTCK
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 38.74       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 41.66       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Mus LTCK 38.74  41.66 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCK.png 
+rm meteo3.ps
+
+# meteograms Siirt LTCL
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 37.97       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 41.83       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Siirt LTCL 37.97 41.83 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCL.png 
+rm meteo3.ps
+
+# meteograms Sinop LTCM
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 42.02       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 35.07       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Sinop LTCM  42.02  35.07  "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCM.png 
+rm meteo3.ps
+
+# meteograms Sivas LTAR
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 39.77       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 37.02       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Sivas LTAR 39.77  37.02"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAR.png 
+rm meteo3.ps
+
+# meteograms Sirnak LTCV
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 37.36       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 42.06       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Sirnak LTCV 37.36 42.06 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCV.png 
+rm meteo3.ps
+
+# meteograms Tekirdag LTBU
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 41.14       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 27.92       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Tekirdag LTBU 41.14 27.92 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBU.png 
+rm meteo3.ps
+
+# meteograms Tokat LTAW
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.31       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 36.37       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Tokat LTAW  40.31 36.37 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAW.png 
+rm meteo3.ps
+
+# meteograms Usak LTBO
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 38.68       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 29.48       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Usak LTBO 38.68 29.48  "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBO.png 
+rm meteo3.ps
+
+# meteograms Van LTCI
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 43.32      ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 38.47      ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Van LTCI 43.32 38.47" ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTCI.png 
+rm meteo3.ps
+
+# meteograms Zonguldak LTAS
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 41.51       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 32.09       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Zonguldak LTAS 41.51 32.09  "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAS.png 
+rm meteo3.ps
+
+# Military
+
+# meteograms Ankara LTAB
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 39.93       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 32.74       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Ankara LTAB 39.93 32.74 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAB.png 
+rm meteo3.ps
+
+# meteograms Ankara LTAE
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.08       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 32.57       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Ankara LTAE 40.08 32.57 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAE.png 
+rm meteo3.ps
+
+# meteograms Ankara LTAD
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 39.95       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 32.69       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Ankara LTAD 39.95 32.69"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAD.png 
+rm meteo3.ps
+
+# meteograms Balikesir LTBF
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 39.62       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 27.93       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Balikesir LTBF 39.62 27.93 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBF.png 
+rm meteo3.ps
+
+# meteograms Bandirma LTBG
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.32       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 27.98       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Bandirma LTBG 40.32   27.98 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBG.png 
+rm meteo3.ps
+
+# meteograms Eskisehir LTBI
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 39.78       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 30.58       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Eskisehir LTBI 39.78 30.58  "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBI.png 
+rm meteo3.ps
+
+# meteograms Incirlik LTAG
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 37       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 35.43       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Incirlik LTAG 37  35.43 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTAG.png 
+rm meteo3.ps
+
+# meteograms Istanbul LTBX
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.99       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 29.22       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Istanbul LTBX 40.99 29.22 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBX.png 
+rm meteo3.ps
+
+# meteograms Izmir LTBL
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 38.51       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 27.01       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Izmir LTBL 38.51 27.01 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBL.png 
+rm meteo3.ps
+
+# meteograms Izmir LTBK
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 38.32       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 27.16       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Izmir LTBK 38.32 27.16 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBK.png 
+rm meteo3.ps
+
+# meteograms Kutahya LTBN
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 39.43       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 30.02       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "Kutahya LTBN 39.43 30.02 "       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/LTBN.png 
+rm meteo3.ps 
+
+
+# meteograms Private
+
+
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.647917       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 29.956944       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "RG-1"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/RG-1.png 
+rm meteo3.ps
+
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.639389       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 29.96525       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "RG-2"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/RG-2.png 
+rm meteo3.ps
+
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.635833       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 29.948028       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "RG-3"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/RG-3.png 
+rm meteo3.ps
+
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.634944       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 30.001694       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "RG-4"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/RG-4.png 
+rm meteo3.ps
+
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.674278       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 29.972028       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "RG-6"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/RG-6.png 
+rm meteo3.ps
+
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.62725       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 29.990389       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "RG-7"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/RG-7.png 
+rm meteo3.ps
+
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.600667       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 29.935667       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "RG-8"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/RG-8.png 
+rm meteo3.ps
+
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.655833       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 30.095556       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "RG-9"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/RG-9.png 
+rm meteo3.ps
+
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.541694       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 30.044083       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "RG-10"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/RG-10.png 
+rm meteo3.ps
+
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.620056       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 29.952333       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "RG-11"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/RG-11.png 
+rm meteo3.ps
+
+sed -i '18d' meteogram_thy_2.ncl
+sed -i '17 a lat = 40.550278       ' meteogram_thy_2.ncl
+sed -i '19d' meteogram_thy_2.ncl
+sed -i '18 a lon = 29.818889       ' meteogram_thy_2.ncl  
+sed -i '187d' meteogram_thy_2.ncl
+sed -i '186 a   rain_res@tiMainString = "RG-12"       ' meteogram_thy_2.ncl
+ncl meteogram_thy_2.ncl
+convert -trim -density 100 meteo3.ps meteo3.png
+mv meteo3.png ~/public_html/meteogram/RG-12.png 
+rm meteo3.ps

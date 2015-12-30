@@ -1,0 +1,62 @@
+#!/bin/bash
+export NCARG_ROOT=/usr/local/ncl-6.2.1
+export PATH=$NCARG_ROOT/bin:$PATH
+
+cd /home/hava12/Build_WRF/WRFV3/run
+rm *.pdf *.ps
+# Tarih atamalari
+gun_1=$(date +%d -d "-1 day") # dun
+gun=$(date +%d)             # bugun
+gun1=$(date +%d -d "+1 day") # yarin
+gun2=$(date +%d -d "+2 day") # ertesi gun
+
+ay_1=$(date +%m -d "-1 day") # dunku ay
+ay=$(date +%m)               # bu ay
+ay1=$(date +%m -d "+1 day")  # yarinki ay
+ay2=$(date +%m -d "+2 day")  # oburgunku  ay
+
+yil_1=$(date +%y -d "-1 day")    # dunku yil
+tamyil_1=$(date +%Y -d "-1 day") # dunku yil
+yil=$(date +%y)                  # bul yil
+tamyil=$(date +%Y)               # bu yil
+yil1=$(date +%y -d "+1 day")   # yarinki yil
+tamyil1=$(date +%Y -d "+1 day")  # yarinki yil
+tamyil2=$(date +%Y -d "+2 day")  # oburhunku yil
+
+
+# yagis
+sed -i '20d' wrf_Precip.ncl
+sed -i '19 a a= addfile ("wrfout_d01_'$tamyil'-'$ay'-'$gun'_00.nc", "r") ' wrf_Precip.ncl
+ncl wrf_Precip.ncl
+convert  -trim -density 100 yagis.pdf ~/public_html/yagis/yagis_.jpg
+rm yagis.p*
+
+# Bulut
+sed -i '20d' wrf_Cloud.ncl
+sed -i '19 a a= addfile ("wrfout_d01_'$tamyil'-'$ay'-'$gun'_00.nc", "r") ' wrf_Cloud.ncl
+ncl wrf_Cloud.ncl    
+convert -trim -density 100 bulut.pdf ~/public_html/bulut/bulut_.jpg
+rm bulut.p*
+
+# Sicaklik basinc ruzgar
+sed -i '20d' surface.ncl
+sed -i '19 a a= addfile ("wrfout_d01_'$tamyil'-'$ay'-'$gun'_00.nc", "r") ' surface.ncl
+ncl surface.ncl
+convert -trim -density 100 tahmin.pdf ~/public_html/T2/sicaklik_.jpg
+rm tahmin.p*
+
+# SkewT 
+sed -i '20d' wrf_SkewT1.ncl            
+sed -i '19 a a= addfile ("wrfout_d01_'$tamyil'-'$ay'-'$gun'_00.nc", "r") ' wrf_SkewT1.ncl
+ncl wrf_SkewT1.ncl
+convert -trim -density 100 tahmin.pdf ~/public_html/SkewT/tahmin.png
+rm tahmin.p*
+
+# Yukseklik, Nem, Sicaklik basinc ruzgar
+sed -i '20d' wrf_Height.ncl
+sed -i '19 a a= addfile ("wrfout_d01_'$tamyil'-'$ay'-'$gun'_00.nc", "r") ' wrf_Height.ncl
+ncl wrf_Height.ncl
+convert -trim -density 100 tahmin.pdf ~/public_html/yukseklik/yukseklik_.jpg
+rm tahmin.p*
+
+

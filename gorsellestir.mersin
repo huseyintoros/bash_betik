@@ -1,0 +1,227 @@
+#!/bin/bash
+#!/bin/bash
+export NCARG_ROOT=/usr/local/ncl-6.2.1
+export PATH=$NCARG_ROOT/bin:$PATH
+
+cd /home/hava12/Build_WRF/WRFV3/run
+cp meteogram_mersin.ncl_asil meteogram_mersin.ncl
+
+# Tarih atamalari
+gun_2=$(date +%d -d "-2 day") # onceki dun
+gun_1=$(date +%d -d "-1 day") # dun
+gun=$(date +%d)             # bugun
+gun1=$(date +%d -d "+1 day") # yarin
+gun2=$(date +%d -d "+2 day") # ertesi gun
+
+ay_1=$(date +%m -d "-1 day") # dunku ay
+ay=$(date +%m)               # bu ay
+ay1=$(date +%m -d "+1 day")  # yarinki ay
+ay2=$(date +%m -d "+2 day")  # oburgunku  ay
+
+yil_1=$(date +%y -d "-1 day")    # dunku yil
+tamyil_1=$(date +%Y -d "-1 day") # dunku yil
+yil=$(date +%y)                  # bul yil
+tamyil=$(date +%Y)               # bu yil
+yil1=$(date +%y -d "+1 day")   # yarinki yil
+tamyil1=$(date +%Y -d "+1 day")  # yarinki yil
+tamyil2=$(date +%Y -d "+2 day")  # oburhunku yil
+
+tarih1=$"gfs."$tamyil$ay$gun"00"
+
+echo $tarih
+
+sed -i '16d' meteogram_mersin.ncl
+sed -i '15 a a= addfile ("wrfout_d01_'$tamyil'-'$ay'-'$gun'_00.nc", "r") ' meteogram_mersin.ncl
+
+
+# MERSIN  36.81  34.62
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat = 36.81       ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon = 34.62       ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Mersin D.Has 36.81 34.62 (3er saatlik tahmin)"       ' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/mersin.png
+
+# Gozne  37.00  34.57
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat = 37.00       ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon =  34.57       ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Gozne 37.00 34.57"       ' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/gozne.png
+
+# Ayvagedigi  37.026  34.564
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat = 37.026       ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon =  34.564       ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Ayvagedigi 37.026 34.564"       ' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/ayvagedigi.png
+
+# Degirmendere  37.06  34.54
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat = 37.06       ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon =  34.54      ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Degirmendere 37.06 34.54"       ' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/Degirmendere.png
+
+# Kizilkaya  37.086  34.53
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat = 37.086       ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon =  34.53      ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Kizilkaya 37.086 34.53"       ' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/kizilkaya.png
+
+# Alanyali  37.09  34.51
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat = 37.09      ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon =  34.51      ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Alanyali 37.09 34.51 "       ' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/alanyali.png
+
+# Guzelyala  Evcili 37.053  34.49
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat = 37.053      ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon =  34.49      ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Guzelyayla 37.053 34.49"       ' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/guzelyayla.png
+
+
+# Atlilar Cerkez 37.09 34.44
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat = 37.09      ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon =  34.44      ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Atlilar 37.09 34.44"       ' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/atlilar.png
+
+# Degnek  37.069  34.39
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat = 37.069      ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon =  34.39      ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Degnek 37.09 34.51"       ' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/degnek.png
+
+# Arslankoy 37.02  34.29
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat = 37.02      ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon =  34.29      ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Arslankoy 37.02 34.29"       ' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/arslankoy.png
+
+# Kizilbag  37.017 34.48
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat = 37.017      ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon =  34.48      ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Kizilbag 37.017 34.48"       ' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/kizilbag.png
+
+# Sebil  37.13  34.56
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat = 37.13      ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon =  34.56      ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Sebil 37.13 34.56"       ' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/sebil.png
+
+# Depe  37.07  34.54
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat = 37.07      ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon =  34.54      ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Depe 37.07 34.54"       ' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/depe.png
+
+
+# Karadepe  37.03  34.52
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat = 37.03      ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon =  34.52      ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Karadepe 37.03 34.52"       ' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/karadepe.png
+
+
+# Tarsus Otogar  36.92 34.88
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat = 36.92      ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon =  34.88      ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Tarsus 39.92 34.88"       ' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/tarsus.png
+
+# Cin Koyu   36.99   34.75 
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat =  36.99      ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon =   34.75     ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Cinkoy  36.99  34.75"' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/cinkoy.png
+
+
+# Silifke 36.38
+sed -i '18d' meteogram_mersin.ncl
+sed -i '17 a lat =  36.38      ' meteogram_mersin.ncl
+sed -i '19d' meteogram_mersin.ncl
+sed -i '18 a lon =   33.93     ' meteogram_mersin.ncl  
+sed -i '187d' meteogram_mersin.ncl
+sed -i '186 a   rain_res@tiMainString = "Silifke 36.38 33.93" ' meteogram_mersin.ncl
+ncl meteogram_mersin.ncl
+convert mersin.png -trim mersin.png
+mv mersin.png ~/public_html/mersin/silifke.png
+
