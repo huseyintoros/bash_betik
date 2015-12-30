@@ -1,0 +1,155 @@
+#!/bin/bash
+# Tarih atamalari
+gun_2=$(date +%d -d "-2 day") # onceki dun
+gun_1=$(date +%d -d "-1 day") # dun
+gun=$(date +%d)               # bugun
+gun1=$(date +%d -d "+1 day") # yarin
+gun2=$(date +%d -d "+2 day") # ertesi gun
+gun3=$(date +%d -d "+3 day") # 
+gun4=$(date +%d -d "+4 day") # 
+
+ay_2=$(date +%m -d "-2 day") # onceki gunun ayi
+ay_1=$(date +%m -d "-1 day") # dunku ay
+ay=$(date +%m)               # bu ay
+ay1=$(date +%m -d "+1 day")  # yarinki ay
+ay2=$(date +%m -d "+2 day")  # oburgunku  ay
+ay3=$(date +%m -d "+3 day")  # 
+ay4=$(date +%m -d "+4 day")  # 
+
+yil_2=$(date +%y -d "-2 day")    # onceki gunun yili
+yil_1=$(date +%y -d "-1 day")    # dunku yil
+tamyil_2=$(date +%Y -d "-2 day") # dunku yil
+tamyil_1=$(date +%Y -d "-1 day") # dunku yil
+yil=$(date +%y)                  # bul yil
+tamyil=$(date +%Y)               # bu yil
+yil1=$(date +%y -d "+1 day")     # yarinki yil
+yil2=$(date +%y -d "+2 day")     # yarinki yil
+yil3=$(date +%y -d "+3 day")     # yarinki yil
+yil4=$(date +%y -d "+4 day")     # yarinki yil
+tamyil1=$(date +%Y -d "+1 day")  # yarinki yil
+tamyil2=$(date +%Y -d "+2 day")  # oburhunku yil
+tamyil3=$(date +%Y -d "+3 day")  # oburhunku yil
+tamyil4=$(date +%Y -d "+4 day")  # oburhunku yil
+
+tarih1=$"gfs."$tamyil$ay$gun"00"
+tarih3=$"gfs."$tamyil3$ay3$gun3"00"
+echo  $tarih1 $tarih3
+
+
+#Tahmin icin kuresel veri indirilmesi------------
+#----Daha indiriliyor olabilir, Oyleyse model calismasin
+cd /home/hava12/Build_WRF/WRFV3/run
+FILE=$"gfs.t00z.pgrb2.0p25.f000"
+if [ -f $FILE ];
+then
+   echo "File $FILE exists"
+exit
+fi
+
+#---- Veriler indirilmis ise WPS den devam et, degilse indir
+cd /mnt/depo2/meteor/tahmin/$tarih1
+if [ -f $FILE ];
+then
+   echo "File $FILE exists"
+# exit
+else
+cd /home/hava12/Build_WRF/WRFV3/run
+./indir.grib2_00z
+cd /mnt/depo2/meteor/tahmin
+mkdir $tarih1
+cd /home/hava12/Build_WRF/WRFV3/run
+mv gfs.t* /mnt/depo2/meteor/tahmin/$tarih1
+fi
+
+
+#---- veri indirilmemis ise model calismasin
+cd /mnt/depo2/meteor/tahmin/$tarih1
+FILE=$"gfs.t00z.pgrb2.0p25.f072"
+if [ -f $FILE ];
+then
+   echo " $FILE var, model calisabilir "
+else
+   echo " $FILE yok, model calismasin "
+   exit
+fi
+#----
+
+#Daha once modelin calisip calismadigini kontrol etmek------------
+cd /home/hava12/Build_WRF/WPS
+FILE=$"met_em.d01."$tamyil3"-"$ay3"-"$gun3"_00:00:00.nc"
+if [ -f $FILE ];
+then
+   echo "program calismis cunku $FILE var "
+exit
+else
+   echo "program calisacak cunku $FILE yok "
+fi
+# Eski dosyalarin temizlenmesi
+cd /home/hava12/Build_WRF/WPS
+rm GRIBFILE*
+rm met_em*
+rm rsl.*
+rm FILE\:*
+rm PFILE\:*
+rm gfs.t*
+
+# wps dosyasinin ayarlanmasi
+cd /home/hava12/Build_WRF/WPS
+sed -i '4d' namelist.wps
+sed -i '3 a start_date = '\'$tamyil'-'$ay'-'$gun'_00:00:00'\'','\'$tamyil'-'$ay'-'$gun'_00:00:00'\'',' namelist.wps
+sed -i '5d' namelist.wps
+sed -i '4 a end_date   = '\'$tamyil3'-'$ay3'-'$gun3'_00:00:00'\'','\'$tamyil3'-'$ay3'-'$gun3'_00:00:00'\'',' namelist.wps
+
+./geogrid.exe
+./link_grib.csh "/mnt/depo2/meteor/tahmin/"$tarih1"/gfs.t*"
+./ungrib.exe
+./metgrid.exe
+cp namelist.wps ~/public_html/.
+cp namelist.wps /mnt/depo2/WRFOUT/hava12/namelist.wps_$tarih1
+
+# WRFV3 bolumu
+cd /home/hava12/Build_WRF/WRFV3/run
+./temizle.eskiler
+#   model calistirma
+sed -i '3d' namelist.input
+sed -i '2 a  run_hours                         = 72,' namelist.input
+sed -i '6d' namelist.input
+sed -i '5 a  start_year                        ='$tamyil',  '$tamyil',' namelist.input
+sed -i '7d' namelist.input
+sed -i '6 a  start_month                       ='$ay',   '$ay',' namelist.input
+sed -i '8d' namelist.input
+sed -i '7 a  start_day                         ='$gun',   '$gun',' namelist.input
+sed -i '9d' namelist.input
+sed -i '8 a  start_hour                         = 00,  00,' namelist.input
+
+
+sed -i '12d' namelist.input
+sed -i '11 a  end_year                         ='$tamyil3',  '$tamyil3',' namelist.input
+sed -i '13d' namelist.input              
+sed -i '12 a  end_month                        ='$ay3',   '$ay3',' namelist.input
+sed -i '14d' namelist.input
+sed -i '13 a  end_day                          ='$gun3', '$gun3', ' namelist.input
+sed -i '15d' namelist.input
+sed -i '14 a  end_hour                         = 00,  00,' namelist.input
+
+
+ln -s ../../WPS/met_em* .
+./real.exe
+./wrf.exe
+cp wrfout_d01_$tamyil-$ay-$gun'_00:00:00' wrfout_d01_$tamyil-$ay-$gun'_00.nc'
+
+./gorsellestir.mersin &
+./gorsellestir.wrfout &
+/home/hava12/Build_WRF/WRFV3/run/gorsellestir.meteogram &
+/home/universite/public_html/alperen/uni1.meteogram &
+/home/universite/public_html/alperen/uni2.meteogram &
+/home/universite/public_html/alperen/uni3.meteogram &
+/home/universite/public_html/alperen/uni4.meteogram &
+/home/universite/public_html/alperen/uni5.meteogram &
+
+cd /home/hava12/Build_WRF/WRFV3/run
+cp namelist.input ~/public_html/.
+cp namelist.input /mnt/depo2/WRFOUT/hava12/namelist.input_$tarih1
+cp wrfout_d01_$tamyil-$ay-$gun'_00.nc' /mnt/depo2/WRFOUT/hava12/.
+rm wrfout_d01_$tamyil_1-$ay_1-$gun_1*
+rm wrfout_d01_$tamyil_2-$ay_2-$gun_2*
